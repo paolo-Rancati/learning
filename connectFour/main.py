@@ -8,7 +8,7 @@ game_over = False
 turn = 0
 column = 0
 fullColumns = [0,0,0,0,0,0,0]
-gameplaySongSelectionList = ["sounds/play.mp3", "sounds/play2.mp3", "sounds/play3.mp3", "sounds/play4.mp3", "sounds/play5.mp3"]
+gameplaySongSelectionList = ["sounds/play.mp3", "sounds/play2.mp3", "sounds/play3.mp3", "sounds/play4.mp3", "sounds/play5.mp3", "sounds/play6.mp3", "sounds/play7.mp3"]
 
 if __name__ == '__main__':
     board = fourSeq.create_board()
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     fourSeq.display_board(screen, board)
     song = random.choice(gameplaySongSelectionList)
     play = pygame.mixer.Sound(song)
-    pygame.mixer.Sound.play(play)
+    play.play()
     while not game_over:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -36,7 +36,7 @@ if __name__ == '__main__':
                 pygame.display.update()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 dropFX = pygame.mixer.Sound("sounds/drop.mp3")
-                pygame.mixer.Sound.play(dropFX)
+                dropFX.play()
                 pygame.draw.rect(screen, fourSeq.CERULEAN, (0, 0, width, fourSeq.SQUARE))
                 dropHere = event.pos[0]
                 # Ask for player1 input
@@ -47,7 +47,6 @@ if __name__ == '__main__':
                     # most of our users will start at one
                     if column in range(1, 8):
                         if fourSeq.dropPiece(turn + 1, column, board):
-                            turn += 1
                             print(np.flip(board, 0))
                             fourSeq.display_board(screen, np.flip(board,0))
                             if fourSeq.winCheck(1, board):
@@ -59,6 +58,7 @@ if __name__ == '__main__':
                             if fullColumns == [1, 2, 3, 4, 5, 6, 7]:
                                 print("DRAW!!!!!")
                                 game_over = True
+                            turn += 1
                     else:
                         print(f"player{turn + 1} you chose an invalid column to place your piece")
                 else:
@@ -69,7 +69,6 @@ if __name__ == '__main__':
                     # most of our users will start at one
                     if column in range(1, 8):
                         if fourSeq.dropPiece(turn + 1, column, board):
-                            turn = 0
                             print(np.flip(board, 0))
                             fourSeq.display_board(screen, np.flip(board,0))
                             if fourSeq.winCheck(2, board):
@@ -81,6 +80,7 @@ if __name__ == '__main__':
                             if fullColumns == [1, 2, 3, 4, 5, 6, 7]:
                                 print("DRAW!!!!!")
                                 game_over = True
+                            turn = 0
                     else:
                         print(f"player{turn + 1} you chose an invalid column to place your piece")
 

@@ -2,11 +2,14 @@ import numpy as np
 import pygame
 import math
 
+# RBG colors
 YELLOW = (255,255,0)
 RED = (255,0,0)
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 CERULEAN = (42,82,190)
+
+# pixel sizes for board and checkers
 SQUARE = 100 # 100 pixels
 RADIUS = 45
 
@@ -30,12 +33,8 @@ def display_board(screen: pygame.surface, board: np.ndarray):
     pygame.display.update()
 
 # this function requests and returns the user input
-# it asks the user for a column in which to drop the checker
 def playerInput(turn: int, column: int):
-    curPlayer = turn + 1
-    print(f"player{curPlayer} inserting at x-axis pixel {column}")
-    print("column/SQUARE", column/SQUARE)
-    return int(math.floor(column/SQUARE)) + 1
+    return int(math.ceil(column/SQUARE))
 # this function finds the first open row in the requested column
 # and inserts the player number into the first open slot
 # if the requested column is full, it alerts the user
